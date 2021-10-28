@@ -1,0 +1,9 @@
+.page {
+  background-color: #000;
+  font-family: 'Inter', 'Arial', sans-serif;
+}
+
+h1, h2, p, section, body, header, main, footer, a, div {
+  border: 1px solid red;
+  box-sizing: border-box;
+}

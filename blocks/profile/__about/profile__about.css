@@ -1,0 +1,10 @@
+.profile__about {
+  margin: 0;
+  padding: 16px 0 0;
+  color: #fff;
+  align-self: start;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 22px;
+  grid-column: 2/3;
+}
