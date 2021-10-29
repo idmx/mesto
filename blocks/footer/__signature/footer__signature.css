@@ -1,0 +1,12 @@
+.footer__signature {
+  color: #545454;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+}
+
+.footer__signature::before {
+  content: '\00A9'
+}

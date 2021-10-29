@@ -7,6 +7,15 @@
     <title>Mesto</title>
 </head>
 <body class="page">
+  <div class="popup">
+    <div class="popup__container">
+      <input type="button" class="popup__close">
+      <p class="popup__title">Редактировать профиль</p>
+      <input type="text" class="popup__name" value="Слава Завьялов">
+      <input type="text" class="popup__about" value="Студент">
+      <input type="button" class="popup__save" value="Сохранить">
+    </div>
+  </div>
   <header class="header">
     <div class="header__logo"></div>
   </header>
@@ -14,19 +23,60 @@
     <section class="profile">   
       <div class="profile__info">
         <div class="profile__avatar"></div>
-        <h1 class="profile__name">Слава Завьялов</h1>
-        <button class="profile__edit-button"></button>
-        <p class="profile__about">Студент</p>
+        <h1 class="profile__name" title="Слава Завьялов">Слава Завьялов</h1>
+        <input type="button" class="profile__edit-button">
+        <p class="profile__about" title="Студент">Студент</p>
       </div>
-      <button class="profile__add-button"></button>
+      <input type="button" class="profile__add-button">
     </section>
     <section class="elements">
       <div class="element">
-        <img class="element__image" src="./images/Berchtesgadener.jpg" alt="Берхтесгаден">
-        <p class="element__title">Берхтесгаден</p>
-        <div class="element__like"></div>
+        <img class="element__image" src="./images/Crimea.jpg" alt="Крым">
+        <div class="element__description">
+          <p class="element__title" title="Крым">Крым</p>
+          <div class="element__like"></div>
+        </div>
+      </div>
+      <div class="element">
+        <img class="element__image" src="./images/bor.jpg" alt="Сосновый бор">
+        <div class="element__description">
+          <p class="element__title" title="Сосновый бор">Сосновый бор</p>
+          <div class="element__like"></div>
+        </div>
+      </div>
+      <div class="element">
+        <img class="element__image" src="./images//elagin.jpg" alt="Елагин остров">
+        <div class="element__description">
+          <p class="element__title" title="Елагин остров">Елагин остров</p>
+          <div class="element__like"></div>
+        </div>
+      </div>
+      <div class="element">
+        <img class="element__image" src="./images/karelia.jpg" alt="Ладожские шхеры">
+        <div class="element__description">
+          <p class="element__title" title="Ладожские шхеры">Ладожские шхеры</p>
+          <div class="element__like"></div>
+        </div>
+      </div>
+      <div class="element">
+        <img class="element__image" src="./images/moscow_city.jpg" alt="Москва Сити">
+        <div class="element__description">
+          <p class="element__title" title="Москва Сити">Москва Сити</p>
+          <div class="element__like"></div>
+        </div>
+      </div>
+      <div class="element">
+        <img class="element__image" src="./images/zenit.jpg" alt="Зенит арена">
+        <div class="element__description">
+          <p class="element__title" title="Зенит арена">Зенит арена</p>
+          <div class="element__like"></div>
+        </div>
       </div>
     </section>
   </main>
+  <footer class="footer">
+    <p class="footer__signature"> 2020 Mesto Russia</p>
+  </footer>
+  <script src="./scripts/script.js"></script>
 </body>
 </html>

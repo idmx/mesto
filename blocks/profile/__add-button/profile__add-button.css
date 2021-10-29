@@ -5,4 +5,10 @@
   width: 150px;
   height: 50px;
   align-self: center;
+  cursor: url(../../../images/cursor.svg), pointer;
+  transition: opacity, 1s;
+}
+
+.profile__add-button:hover {
+  opacity: 0.6;
 }

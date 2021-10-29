@@ -3,7 +3,7 @@
   font-family: 'Inter', 'Arial', sans-serif;
 }
 
-h1, h2, p, section, body, header, main, footer, a, div {
+h1, h2, p, section, body, header, main, footer, a, div, span {
   border: 1px solid red;
   box-sizing: border-box;
 }
