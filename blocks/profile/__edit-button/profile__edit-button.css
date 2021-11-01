@@ -5,6 +5,7 @@
   background-color: #000;
   background-image: url(../../../images/Edit_Button.svg);
   background-size: contain;
+  background-repeat: no-repeat;
   border: none;
   align-self: flex-end;
   bottom: 9px;
