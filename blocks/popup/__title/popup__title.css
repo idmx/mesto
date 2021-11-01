@@ -6,3 +6,19 @@
   padding: 34px 0 54px 36px;
   margin: 0 auto;
 }
+
+@media screen and (max-width: 520px) {
+.popup__title {
+  font-size: 22px;
+  line-height: 26px;
+  padding: 30px 38px 64px 38px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .popup__title {
+    font-size: 18px;
+    line-height: 22px;
+    padding: 25px 0 75px 22px;
+  }
+}

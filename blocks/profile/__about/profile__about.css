@@ -8,3 +8,17 @@
   line-height: 22px;
   grid-column: 2/3;
 }
+
+@media screen and (max-width: 700px) {
+  .profile__about {
+    grid-column: 1/3;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .profile__about {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

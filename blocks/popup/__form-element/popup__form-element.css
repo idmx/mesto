@@ -1,4 +1,4 @@
-.popup__about {
+.popup__form-element {
   display:block;
   font-size: 14px;
   font-weight: normal;
@@ -6,11 +6,24 @@
   color: #000;
   border: none;
   border-bottom: 1px solid rgba(0,0,0,.2);
-  margin: 0 auto 48px;
+  margin: 0 auto 30px;
   padding: 0;
   height: 26px;
   width: calc(100% - 72px);
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.popup__form-element:nth-of-type(2) {
+  margin: 0 auto 48px;
+}
+
+@media screen and (max-width: 320px) {
+  .popup__form-element {
+    width: calc(100% - 44px);
+  }
+  .popup__form-element:nth-of-type(2) {
+    margin: 0 auto 45px;
+  }
 }
