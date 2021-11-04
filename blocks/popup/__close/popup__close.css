@@ -1,14 +1,15 @@
 .popup__close {
-  position: relative;
+  position: absolute;
+  padding: 0;
   background-image: url(../../../images/Close.svg);
   background-size: cover;
   width: 32px;
   height: 32px;
   border: none;
   background-color: rgba(0,0,0,0);
-  right: -430px;
   top: -40px;
-  cursor: url(../../../images/cursor.svg), pointer;
+  right: -40px;
+  cursor: pointer;
   transition: opacity, 1s;
 }
 
@@ -20,7 +21,7 @@
   .popup__close {
     width: 28px;
     height: 28px;
-    right: -100%;
+    right: -36px;
     top: -36px;
   }
 }
@@ -29,7 +30,7 @@
   .popup__close {
     width: 24px;
     height: 24px;
-    right: calc(-100% + 24px);
+    right: 0%;
     top: -38px;
   }
 }
@@ -38,7 +39,7 @@
   .popup__close {
     width: 20px;
     height: 20px;
-    right: -262px;
+    right: 0%;
     top: -36px;
   }
 }

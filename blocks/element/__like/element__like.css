@@ -2,14 +2,15 @@
   background-image: url(../../../images/like.svg);
   background-repeat: no-repeat;
   background-size: contain;
-  width: 22px;
+  background-color: #fff;
+  min-width: 22px;
   height: 19px;
-  padding-right: 30px;
-  align-self: center;
-  cursor: url(../../../images/cursor.svg), pointer;
-  transition: background-image, 1s;
+  margin: 30px 20px 0;
+  border: none;
+  cursor: pointer;
+  transition: opacity, 1s;
 }
 
 .element__like:hover {
-  background-image: url(../../../images/like_hover.svg);
+  opacity: .5;
 }

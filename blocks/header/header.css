@@ -10,7 +10,6 @@
   .header {
     min-height: 64px;
     padding: 34px 0 0;
-    max-width: calc(100% - 27px);
   }
 }
 

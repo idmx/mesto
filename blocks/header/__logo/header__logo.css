@@ -10,6 +10,7 @@
   .header__logo {
     width: calc(103.74px + 100%/24);
     height: calc(24.4px + 1vw);
+    margin-left: 27px;
   }
 }
 

@@ -10,3 +10,10 @@
 .footer__signature::before {
   content: '\00A9';
 }
+
+@media screen and (max-width: 700px) {
+  .footer__signature {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
