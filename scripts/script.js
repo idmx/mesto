@@ -4,11 +4,13 @@ let popupForm = document.querySelector('.popup__form');
 let pop = document.querySelector('.popup');
 let name = document.querySelector('.profile__name');
 let about = document.querySelector('.profile__about');
+let popupName = popupForm[0];
+let popupAbout = popupForm[1];
 
 function popupOpen() {
-  popupForm[0].value = name.textContent;
-  popupForm[1].value = about.textContent;
-  pop.classList.toggle('popup_opened');
+  popupName.value = name.textContent;
+  popupAbout.value = about.textContent;
+  popupClose();
 }
 
 function popupClose() {
