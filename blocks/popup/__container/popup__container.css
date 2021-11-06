@@ -24,6 +24,5 @@
   .popup__container {
     width: 282px;
     min-height: 322px;
-    transform: translateY(-7px);
   }
 }
