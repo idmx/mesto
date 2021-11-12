@@ -68,7 +68,16 @@
   <footer class="footer">
     <p class="footer__signature"> 2020 Mesto Russia</p>
   </footer>
-  <div class="popup">
+  <template id = "element">
+    <div class="element">
+      <img class="element__image" src="./images/zenit.jpg" alt="Зенит арена">
+      <div class="element__description">
+        <h2 class="element__title" title="Зенит арена">Зенит арена</h2>
+        <button class="element__like" type="button"></button>
+      </div>
+    </div>
+  </template>
+  <div class="popup popup_edit">
     <div class="popup__container">
       <button class="popup__close" type="button"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
@@ -77,6 +86,23 @@
         <input type="text" class="popup__form-element" name="about-profile" value="Студент" required placeholder="О себе">
         <button type="submit" class="popup__save">Сохранить</button>
       </form>
+    </div>
+  </div>
+  <div class="popup popup_add">
+    <div class="popup__container">
+      <button class="popup__close" type="button"></button>
+      <h2 class="popup__title">Новое место</h2>
+      <form class="popup__form" name="add-element">
+        <input type="text" class="popup__form-element" name="title-element" value="" required placeholder="Название">
+        <input type="text" class="popup__form-element" name="link-element" value="" required placeholder="Ссылка на картинку">
+        <button type="submit" class="popup__save">Создать</button>
+      </form>
+    </div>
+  </div>
+  <div class="popup popup_photo">
+    <div class="popup__photo-element">
+      <button class="popup__close" type="button"></button>
+      <p class="popup__photo-title"></p>
     </div>
   </div>
   <script src="./scripts/script.js"></script>
