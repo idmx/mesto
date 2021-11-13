@@ -19,7 +19,9 @@ const popupLink = document.querySelector('[name="link-element"]');
 const popupPhotoTitle = document.querySelector('.popup__photo-title');
 const popupPhotoCard = document.querySelector('.popup__photo-element');
 const image = document.querySelectorAll('.element__image');
-console.log(image)
+const like = document.querySelectorAll('.element__like');
+const trash = document.querySelectorAll('.element__trash');
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -48,15 +50,29 @@ const initialCards = [
 ];
 
 function openPopup(evt, popup) {
-  popupName.value = name.textContent;
-  popupAbout.value = about.textContent;
-  popupPhotoCard.style.backgroundImage = `url('${evt.target.src}')`;
-  popupPhotoTitle.textContent = evt.target.alt;
+  //если нажата кнопка редактирования
+  if (evt.target.className === 'profile__edit-button') {
+    popupName.value = name.textContent;
+    popupAbout.value = about.textContent;
+  }
+  //если нажата фотография
+  if (evt.target.className === 'element__image') {
+    popupPhotoCard.src = evt.target.src;
+    popupPhotoTitle.textContent = popupPhotoCard.alt = evt.target.alt;
+  }
   popupClose(popup);
 }
 
 function popupClose(popup) {
   popup.classList.toggle('popup_opened');
+}
+
+function likeToggle(evt) {
+  evt.target.classList.toggle('element__like_active');
+}
+
+function photoDelete(evt) {
+  evt.target.parentElement.remove();
 }
 
 //Добавляем 6 стандартных карточек через js
@@ -73,6 +89,10 @@ function addElement(initialCards) {
   userElement.querySelector('.element__description>.element__title').textContent = initialCards.name;
   userElement.querySelector('.element__description>.element__title').title = initialCards.name;
   elements.prepend(userElement);
+  //вешаем обработчики на новые добавленные элементы
+  userElement.querySelector('.element__image').addEventListener('click', () => openPopup(event,popPhoto));
+  userElement.querySelector('.element__like').addEventListener('click', likeToggle);
+  userElement.querySelector('.element__trash').addEventListener('click', photoDelete);
 }
 
 function createCard(evt) {
@@ -80,7 +100,6 @@ function createCard(evt) {
   const card = {};
   card.name = popupTitle.value;
   card.link = popupLink.value;
-  console.log(card)
   addElement(card);
   popupClose(popAdd);
 }
@@ -100,3 +119,5 @@ popEditExit.addEventListener('click', () => popupClose(popEdit));
 popPhotoExit.addEventListener('click', () => popupClose(popPhoto));
 popupEditForm.addEventListener('submit', EditformSubmitHandler);
 popupAddForm.addEventListener('submit', createCard);
+like.forEach(like => like.addEventListener('click', likeToggle));
+trash.forEach(trash => trash.addEventListener('click', photoDelete));

@@ -1,0 +1,21 @@
+.element__trash {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 0;
+  margin: 0;
+  background-image: url(../../../images/delete.svg);
+  background-size: auto auto;
+  background-position: top;
+  background-repeat: no-repeat;
+  background-color: rgba(0,0,0,0);
+  width: 18px;
+  height: 19px;
+  border: none;
+  cursor: pointer;
+  transition: opacity, 1s;
+}
+
+.element__trash:hover {
+  opacity: .6;
+}

@@ -1,0 +1,13 @@
+.popup__container-photo {
+  position: relative;
+  max-width: 75vw;
+  min-height: 75vh;
+  padding: 0;
+  margin: 0;
+}
+
+@media screen and (max-width: 320px) {
+  .popup__container-photo {
+    align-self: flex-end;
+  }
+}
