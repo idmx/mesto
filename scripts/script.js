@@ -1,123 +1,121 @@
-const popAddExit = document.querySelector('.popup_add .popup__close');
-const popEditExit = document.querySelector('.popup_edit .popup__close');
-const popPhotoExit = document.querySelector('.popup_photo .popup__close');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
-const popEdit = document.querySelector('.popup_edit');
-const popAdd = document.querySelector('.popup_add');
-const popPhoto = document.querySelector('.popup_photo');
+const popupEdit = document.querySelector('.popup_edit');
+const popupAdd = document.querySelector('.popup_add');
+const popupPhoto = document.querySelector('.popup_photo');
+const popupAddCloseButton = popupAdd.querySelector('.popup__close');
+const popupEditCloseButton = popupEdit.querySelector('.popup__close');
+const popupPhotoCloseButton = popupPhoto.querySelector('.popup__close');
 const popupEditForm = document.querySelector('[name="edit-profile"]');
 const popupAddForm = document.querySelector('[name="add-element"]');
 const name = document.querySelector('.profile__name');
 const about = document.querySelector('.profile__about');
 const popupName = document.querySelector('[name="name-profile"]');
 const popupAbout = document.querySelector('[name="about-profile"]');
-const elementTemplate = document.querySelector('#element').content; 
-const elements = document.querySelector('.elements');
+const cardTemplate = document.querySelector('#element').content; 
+const cards = document.querySelector('.elements');
 const popupTitle = document.querySelector('[name="title-element"]');
 const popupLink = document.querySelector('[name="link-element"]');
 const popupPhotoTitle = document.querySelector('.popup__photo-title');
 const popupPhotoCard = document.querySelector('.popup__photo-element');
-const image = document.querySelectorAll('.element__image');
-const like = document.querySelectorAll('.element__like');
-const trash = document.querySelectorAll('.element__trash');
 
-const initialCards = [
+const initialCardsData = [
   {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    name: 'Крым',
+    link: './images/Crimea.jpg'
   },
   {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    name: 'Сосновый бор',
+    link: './images/bor.jpg'
   },
   {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    name: 'Елагин остров',
+    link: './images//elagin.jpg'
   },
   {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    name: 'Ладожские шхеры',
+    link: './images/karelia.jpg'
   },
   {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    name: 'Москва Сити',
+    link: './images/moscow_city.jpg'
   },
   {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    name: 'Зенит арена',
+    link: './images/zenit.jpg'
   }
 ];
 
-function openPopup(evt, popup) {
-  //если нажата кнопка редактирования
-  if (evt.target.className === 'profile__edit-button') {
-    popupName.value = name.textContent;
-    popupAbout.value = about.textContent;
-  }
-  //если нажата фотография
-  if (evt.target.className === 'element__image') {
-    popupPhotoCard.src = evt.target.src;
-    popupPhotoTitle.textContent = popupPhotoCard.alt = evt.target.alt;
-  }
-  popupClose(popup);
+//если нажата кнопка редактирования
+function openEditPopup() {
+  popupName.value = name.textContent;
+  popupAbout.value = about.textContent;
+  togglePopup(popupEdit);
 }
 
-function popupClose(popup) {
+//если нажата кнопка добавления
+function openAddPopup() {
+  popupTitle.value = '';
+  popupLink.value = '';
+  togglePopup(popupAdd);
+}
+
+//если нажата фотография
+function openPhotoPopup(evt) {
+  popupPhotoCard.src = evt.target.src;
+  popupPhotoCard.alt = popupPhotoTitle.textContent = evt.target.alt;
+  togglePopup(popupPhoto);
+}
+
+function togglePopup(popup) {
   popup.classList.toggle('popup_opened');
 }
 
-function likeToggle(evt) {
+function toggleLike(evt) {
   evt.target.classList.toggle('element__like_active');
 }
 
-function photoDelete(evt) {
-  evt.target.parentElement.remove();
+function deletePhoto(evt) {
+  evt.target.closest('.element').remove();
 }
 
 //Добавляем 6 стандартных карточек через js
-(function () {
-  initialCards.forEach ((initialCards) => {
-    addElement(initialCards);
-  });
-})();
+initialCardsData.forEach ((cardData) => {
+    card = addElement(cardData);
+    cards.prepend(card);
+});
 
-function addElement(initialCards) {
-  const userElement = elementTemplate.querySelector('.element').cloneNode(true);
-  userElement.querySelector('.element__image').src = initialCards.link;
-  userElement.querySelector('.element__image').alt = initialCards.name;
-  userElement.querySelector('.element__description>.element__title').textContent = initialCards.name;
-  userElement.querySelector('.element__description>.element__title').title = initialCards.name;
-  elements.prepend(userElement);
+function addElement(cardData) {
+  const userCard = cardTemplate.querySelector('.element').cloneNode(true);
+  userCard.querySelector('.element__image').src = cardData.link;
+  userCard.querySelector('.element__image').alt = cardData.name;
+  userCard.querySelector('.element__description>.element__title').textContent = cardData.name;
+  userCard.querySelector('.element__description>.element__title').title = cardData.name;
   //вешаем обработчики на новые добавленные элементы
-  userElement.querySelector('.element__image').addEventListener('click', () => openPopup(event,popPhoto));
-  userElement.querySelector('.element__like').addEventListener('click', likeToggle);
-  userElement.querySelector('.element__trash').addEventListener('click', photoDelete);
+  userCard.querySelector('.element__image').addEventListener('click', openPhotoPopup);
+  userCard.querySelector('.element__like').addEventListener('click', toggleLike);
+  userCard.querySelector('.element__trash').addEventListener('click', deletePhoto);
+  return userCard;
 }
 
 function createCard(evt) {
   evt.preventDefault();
-  const card = {};
-  card.name = popupTitle.value;
-  card.link = popupLink.value;
-  addElement(card);
-  popupClose(popAdd);
+  card = addElement({name: popupTitle.value, link: popupLink.value});
+  cards.prepend(card);
+  togglePopup(popupAdd);
 }
 
-function EditformSubmitHandler (evt) {
+function editformSubmitHandler (evt) {
   evt.preventDefault(); 
   name.textContent = popupName.value;
   about.textContent = popupAbout.value;
-  popupClose(popEdit);
+  togglePopup(popupEdit);
 }
 
-editButton.addEventListener('click', () => openPopup(event, popEdit));
-addButton.addEventListener('click', () => openPopup(event, popAdd));
-image.forEach(image => image.addEventListener('click', () => openPopup(event,popPhoto)));
-popAddExit.addEventListener('click', () => popupClose(popAdd));
-popEditExit.addEventListener('click', () => popupClose(popEdit));
-popPhotoExit.addEventListener('click', () => popupClose(popPhoto));
-popupEditForm.addEventListener('submit', EditformSubmitHandler);
+editButton.addEventListener('click', openEditPopup);
+addButton.addEventListener('click', openAddPopup);
+popupAddCloseButton.addEventListener('click', () => togglePopup(popupAdd));
+popupEditCloseButton.addEventListener('click', () => togglePopup(popupEdit));
+popupPhotoCloseButton.addEventListener('click', () => togglePopup(popupPhoto));
+popupEditForm.addEventListener('submit', editformSubmitHandler);
 popupAddForm.addEventListener('submit', createCard);
-like.forEach(like => like.addEventListener('click', likeToggle));
-trash.forEach(trash => trash.addEventListener('click', photoDelete));
