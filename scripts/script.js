@@ -63,7 +63,8 @@ function openAddPopup() {
 //если нажата фотография
 function openPhotoPopup(evt) {
   popupPhotoCard.src = evt.target.src;
-  popupPhotoCard.alt = popupPhotoTitle.textContent = evt.target.alt;
+  popupPhotoCard.alt = evt.target.alt;
+  popupPhotoTitle.textContent = evt.target.alt;
   togglePopup(popupPhoto);
 }
 
@@ -81,8 +82,7 @@ function deletePhoto(evt) {
 
 //Добавляем 6 стандартных карточек через js
 initialCardsData.forEach ((cardData) => {
-    card = addElement(cardData);
-    cards.prepend(card);
+  renderCard(cardData);
 });
 
 function addElement(cardData) {
@@ -98,10 +98,15 @@ function addElement(cardData) {
   return userCard;
 }
 
+function renderCard(cardData) {
+  const card = addElement(cardData);
+  cards.prepend(card);
+}
+
 function createCard(evt) {
   evt.preventDefault();
-  card = addElement({name: popupTitle.value, link: popupLink.value});
-  cards.prepend(card);
+  const cardData = {name: popupTitle.value, link: popupLink.value};
+  renderCard(cardData);
   togglePopup(popupAdd);
 }
 
