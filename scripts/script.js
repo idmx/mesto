@@ -110,7 +110,7 @@ function createCard(evt) {
   togglePopup(popupAdd);
 }
 
-function editformSubmitHandler (evt) {
+function editFormSubmitHandler (evt) {
   evt.preventDefault(); 
   name.textContent = popupName.value;
   about.textContent = popupAbout.value;
@@ -122,5 +122,5 @@ addButton.addEventListener('click', openAddPopup);
 popupAddCloseButton.addEventListener('click', () => togglePopup(popupAdd));
 popupEditCloseButton.addEventListener('click', () => togglePopup(popupEdit));
 popupPhotoCloseButton.addEventListener('click', () => togglePopup(popupPhoto));
-popupEditForm.addEventListener('submit', editformSubmitHandler);
+popupEditForm.addEventListener('submit', editFormSubmitHandler);
 popupAddForm.addEventListener('submit', createCard);
