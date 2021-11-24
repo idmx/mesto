@@ -46,28 +46,9 @@ function checkInputValidity (formElement, inputElement, inputFieldError, inputEr
   }
 };
 
-function generateError (inputElement) {
-  let errorMessage;
-  switch(inputElement.id) {
-    case 'name-input':
-    case 'about-input':
-    case 'title-input':
-      if (inputElement.value.length) errorMessage =  `Минимальное количество символов: 2. Длина текста сейчас: ${inputElement.value.length} символ`;
-      else errorMessage = 'Вы пропустили это поле';
-      break;
-    case 'link-input':
-      if (inputElement.value.length) errorMessage =  'Введите адрес сайта';
-      else errorMessage = 'Вы пропустили это поле';
-      break;
-    default:
-      errorMessage = 'Вы пропустили это поле';
-  }
-  return errorMessage;
-}
-
 function showInputError (formElement, inputElement, inputFieldError, inputError) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  const errorMessage = generateError(inputElement);
+  const errorMessage = inputElement.validationMessage;
   inputElement.classList.add(inputFieldError);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(inputError);

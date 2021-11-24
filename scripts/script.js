@@ -51,16 +51,16 @@ const initialCardsData = [
 function openEditPopup() {
   popupName.value = name.textContent;
   popupAbout.value = about.textContent;
-  togglePopup(popupEdit);
-  document.addEventListener('keydown', esc = escHandler.bind(null,popupEdit));
+  validationForm(popupEdit);
+  openPopup(popupEdit);
 }
 
 //если нажата кнопка добавления
 function openAddPopup(evt) {
   popupTitle.value = '';
   popupLink.value = '';
-  togglePopup(popupAdd);
-  document.addEventListener('keydown', esc = escHandler.bind(null,popupAdd));
+  validationForm(popupAdd);
+  openPopup(popupAdd);
 }
 
 //если нажата фотография
@@ -68,19 +68,23 @@ function openPhotoPopup(evt) {
   popupPhotoCard.src = evt.target.src;
   popupPhotoCard.alt = evt.target.alt;
   popupPhotoTitle.textContent = evt.target.alt;
-  togglePopup(popupPhoto);
-  document.addEventListener('keydown', esc = escHandler.bind(null,popupPhoto));
+  openPopup(popupPhoto);
 }
 
-function escHandler(popup, evt) {
-  if(evt.key === 'Escape'){
-    togglePopup(popup);
-    document.removeEventListener('keydown', esc);
-  } 
+function escHandler(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
 }
 
-function togglePopup(popup) {
-  if(popup !== popupPhoto) validationForm(popup);
+function openPopup(popup) {
+  popup.classList.toggle('popup_opened');
+  document.addEventListener('keydown', escHandler);
+}
+
+function closePopup(popup) {
+  document.removeEventListener('keydown', escHandler);
   popup.classList.toggle('popup_opened');
 }
 
@@ -130,28 +134,26 @@ function createCard(evt) {
   evt.preventDefault();
   const cardData = {name: popupTitle.value, link: popupLink.value};
   renderCard(cardData);
-  togglePopup(popupAdd);
-  document.removeEventListener('keydown', esc);
+  closePopup(popupAdd);
 }
 
 function editFormSubmitHandler (evt) {
   evt.preventDefault(); 
   name.textContent = popupName.value;
   about.textContent = popupAbout.value;
-  togglePopup(popupEdit);
-  document.removeEventListener('keydown', esc);
+  closePopup(popupEdit);
 }
 
 editButton.addEventListener('click', openEditPopup);
 addButton.addEventListener('click', openAddPopup);
-popupAddCloseButton.addEventListener('click', () => togglePopup(popupAdd));
-popupEditCloseButton.addEventListener('click', () => togglePopup(popupEdit));
-popupPhotoCloseButton.addEventListener('click', () => togglePopup(popupPhoto));
+popupAddCloseButton.addEventListener('click', () => closePopup(popupAdd));
+popupEditCloseButton.addEventListener('click', () => closePopup(popupEdit));
+popupPhotoCloseButton.addEventListener('click', () => closePopup(popupPhoto));
 popupEditForm.addEventListener('submit', editFormSubmitHandler);
 popupAddForm.addEventListener('submit', createCard);
 //Закрытие попапов нажатием на оверлей
 popupOverlays.forEach(popupOverlay => {
   popupOverlay.addEventListener('click', (evt) => {
-    if (evt.target === evt.currentTarget) togglePopup(popupOverlay);
+    if (evt.target === evt.currentTarget) closePopup(popupOverlay);
   });
 });
