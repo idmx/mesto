@@ -18,6 +18,7 @@ const popupTitle = document.querySelector('[name="title-element"]');
 const popupLink = document.querySelector('[name="link-element"]');
 const popupPhotoTitle = document.querySelector('.popup__photo-title');
 const popupPhotoCard = document.querySelector('.popup__photo-element');
+const popupOverlays = Array.from(document.querySelectorAll('.popup'));
 
 const initialCardsData = [
   {
@@ -51,13 +52,15 @@ function openEditPopup() {
   popupName.value = name.textContent;
   popupAbout.value = about.textContent;
   togglePopup(popupEdit);
+  document.addEventListener('keydown', esc = escHandler.bind(null,popupEdit));
 }
 
 //если нажата кнопка добавления
-function openAddPopup() {
+function openAddPopup(evt) {
   popupTitle.value = '';
   popupLink.value = '';
   togglePopup(popupAdd);
+  document.addEventListener('keydown', esc = escHandler.bind(null,popupAdd));
 }
 
 //если нажата фотография
@@ -66,10 +69,30 @@ function openPhotoPopup(evt) {
   popupPhotoCard.alt = evt.target.alt;
   popupPhotoTitle.textContent = evt.target.alt;
   togglePopup(popupPhoto);
+  document.addEventListener('keydown', esc = escHandler.bind(null,popupPhoto));
+}
+
+function escHandler(popup, evt) {
+  if(evt.key === 'Escape'){
+    togglePopup(popup);
+    document.removeEventListener('keydown', esc);
+  } 
 }
 
 function togglePopup(popup) {
+  if(popup !== popupPhoto) validationForm(popup);
   popup.classList.toggle('popup_opened');
+}
+
+//После закрытия формы необходимо убрать поля ошибок и деактивировать/активировать кнопку
+function validationForm(popup) {
+  const formElement = popup.querySelector('.popup__form');
+  const inputList = Array.from(formElement.querySelectorAll('.popup__form-element'));
+  const buttonElement = formElement.querySelector('.popup__save');
+  inputList.forEach((inputElement) => {
+    hideInputError(formElement, inputElement, 'popup__form-element_type_error', 'popup__error_visible');
+    toggleButtonState(inputList, buttonElement, 'popup__save_disabled');
+  });
 }
 
 function toggleLike(evt) {
@@ -108,6 +131,7 @@ function createCard(evt) {
   const cardData = {name: popupTitle.value, link: popupLink.value};
   renderCard(cardData);
   togglePopup(popupAdd);
+  document.removeEventListener('keydown', esc);
 }
 
 function editFormSubmitHandler (evt) {
@@ -115,6 +139,7 @@ function editFormSubmitHandler (evt) {
   name.textContent = popupName.value;
   about.textContent = popupAbout.value;
   togglePopup(popupEdit);
+  document.removeEventListener('keydown', esc);
 }
 
 editButton.addEventListener('click', openEditPopup);
@@ -124,3 +149,9 @@ popupEditCloseButton.addEventListener('click', () => togglePopup(popupEdit));
 popupPhotoCloseButton.addEventListener('click', () => togglePopup(popupPhoto));
 popupEditForm.addEventListener('submit', editFormSubmitHandler);
 popupAddForm.addEventListener('submit', createCard);
+//Закрытие попапов нажатием на оверлей
+popupOverlays.forEach(popupOverlay => {
+  popupOverlay.addEventListener('click', (evt) => {
+    if (evt.target === evt.currentTarget) togglePopup(popupOverlay);
+  });
+});
