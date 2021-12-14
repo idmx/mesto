@@ -1,7 +1,7 @@
 import { popupPhotoCard, popupPhotoTitle, popupPhoto, openPopup } from "./script.js"
 
 export default class Card {
-  constructor(photoTitle, photoLink, cardTemplate) {
+  constructor(photoTitle, photoLink, cardTemplate) { 
     this._photoTitle = photoTitle;
     this._photoLink = photoLink;
     this._cardTemplate = cardTemplate;
@@ -14,9 +14,10 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._element.querySelector('.element__image').addEventListener('click', this._openPhotoPopup);
-    this._element.querySelector('.element__like').addEventListener('click', this._toggleLike);
-    this._element.querySelector('.element__trash').addEventListener('click', this._deletePhoto);
+    this._elementImage.addEventListener('click', this._openPhotoPopup);
+    this._elementLike = this._element.querySelector('.element__like');
+    this._elementLike.addEventListener('click', () => this._toggleLike());
+    this._element.querySelector('.element__trash').addEventListener('click', () => this._deletePhoto());
   }
 
   _openPhotoPopup(evt) {
@@ -26,19 +27,21 @@ export default class Card {
     openPopup(popupPhoto);
   }
 
-  _toggleLike(evt) {
-    evt.target.classList.toggle('element__like_active');
+  _toggleLike() {
+    this._elementLike.classList.toggle('element__like_active');
   }
 
-  _deletePhoto(evt) {
-    evt.target.closest('.element').remove();
+  _deletePhoto() {
+    this._element.remove();
+    this._element = null;
   }
 
-  addElement() {; 
+  addElement() { 
     this._element = this._getTemplate();
+    this._elementImage = this._element.querySelector('.element__image');
     this._setEventListeners();
-    this._element.querySelector('.element__image').src = this._photoLink;
-    this._element.querySelector('.element__image').alt = this._photoTitle;
+    this._elementImage.src = this._photoLink;
+    this._elementImage.alt = this._photoTitle;
     this._element.querySelector('.element__description>.element__title').textContent = this._photoTitle;
     this._element.querySelector('.element__description>.element__title').title = this._photoTitle;
     return this._element;

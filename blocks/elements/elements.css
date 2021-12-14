@@ -1,6 +1,6 @@
 .elements {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 1fr 1fr 1fr;
   max-width: 880px;
   margin: 0 auto;
   gap: 20px 17px;
@@ -9,7 +9,7 @@
 
 @media screen and (max-width: 900px) {
   .elements {
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 1fr;
     max-width: calc(282px*2 + 17px);
     padding-bottom: 56px;
   }
@@ -17,7 +17,7 @@
 
 @media screen and (max-width: 600px) {
   .elements {
-    grid-template-columns: auto;
+    grid-template-columns: 1fr;
     max-width: 282px;
     padding-bottom: 48px;
   }

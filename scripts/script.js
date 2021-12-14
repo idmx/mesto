@@ -22,7 +22,6 @@ const popupPhotoTitle = document.querySelector('.popup__photo-title');
 const popupPhotoCard = document.querySelector('.popup__photo-element');
 const popupOverlays = Array.from(document.querySelectorAll('.popup'));
 const cardTemplate = ('#element');
-const formList = Array.from(document.querySelectorAll('.popup__form'));
 
 const initialCardsData = [
   {
@@ -59,27 +58,23 @@ const data = {
   errorClass: 'popup__error_visible'
 }
 
+const validateAddForm = new FormValidator(data, popupAddForm);
+const validateEditForm = new FormValidator(data, popupEditForm);
+
 //Добавляем 6 стандартных карточек через js
 initialCardsData.forEach((cardData) => {
-  const card = new Card(cardData.name, cardData.link, cardTemplate);
-  cards.prepend(card.addElement());
+  createCard(cardData.name, cardData.link);
 })
 
-//Валидируем 6 стандартных карточек через js
-formList.forEach((formElement) => {
-  validationForm(formElement);
-});
-
-function validationForm(popup) {
-  const validate = new FormValidator(data, popup);
-  validate.enableValidation();
-}
+//Валидируем обе формы первоначально
+validateAddForm.enableValidation()
+validateEditForm.enableValidation()
 
 //если нажата кнопка редактирования
 function openEditPopup() {
   popupName.value = name.textContent;
   popupAbout.value = about.textContent;
-  validationForm(popupEdit);
+  validateEditForm.resetForm();
   openPopup(popupEdit);
 }
 
@@ -87,7 +82,7 @@ function openEditPopup() {
 function openAddPopup(evt) {
   popupTitle.value = '';
   popupLink.value = '';
-  validationForm(popupAdd);
+  validateAddForm.resetForm();
   openPopup(popupAdd);
 }
 
@@ -112,14 +107,16 @@ function editFormSubmitHandler (evt) {
   evt.preventDefault(); 
   name.textContent = popupName.value;
   about.textContent = popupAbout.value;
-  closePopup(popupEdit);
 }
 
-function createCard(evt) {
-  evt.preventDefault();
-  const card = new Card(popupTitle.value, popupLink.value, cardTemplate)
-  cards.prepend(card.addElement());
-  closePopup(popupAdd);
+function createCard(popupTitle, popupLink) {
+  const card = new Card(popupTitle, popupLink, cardTemplate);
+  const newCard = card.addElement();
+  addCard(newCard);
+}
+
+function addCard(newCard) {
+  cards.prepend(newCard);
 }
 
 editButton.addEventListener('click', openEditPopup);
@@ -127,8 +124,15 @@ addButton.addEventListener('click', openAddPopup);
 popupAddCloseButton.addEventListener('click', () => closePopup(popupAdd));
 popupEditCloseButton.addEventListener('click', () => closePopup(popupEdit));
 popupPhotoCloseButton.addEventListener('click', () => closePopup(popupPhoto));
-popupEditForm.addEventListener('submit', editFormSubmitHandler);
-popupAddForm.addEventListener('submit', createCard);
+popupEditForm.addEventListener('submit', (evt) => {
+  editFormSubmitHandler(evt);
+  closePopup(popupEdit);
+});
+popupAddForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  createCard(popupTitle.value, popupLink.value);
+  closePopup(popupAdd);
+});
 //Закрытие попапов нажатием на оверлей
 popupOverlays.forEach(popupOverlay => {
   popupOverlay.addEventListener('click', (evt) => {

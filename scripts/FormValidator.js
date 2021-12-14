@@ -11,16 +11,19 @@ export default class FormValidator {
   enableValidation() {
     this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
     this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
-    this._formElement.addEventListener('submit', function (evt) {
-      evt.preventDefault();
-    });
     this._setEventListeners();
   };
+
+  resetForm() {
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+      this._toggleButtonState();
+    });
+  }
 
   _setEventListeners() {
     this._toggleButtonState();
     this._inputList.forEach((inputElement) => {
-      this._hideInputError (inputElement);
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
         this._toggleButtonState();
