@@ -1,5 +1,3 @@
-// import { popupPhotoCard, popupPhotoTitle, popupPhoto, openPopup } from "./script.js"
-
 export default class Card {
   constructor(photoTitle, photoLink, cardTemplate, handleCardClick) { 
     this._photoTitle = photoTitle;
@@ -20,13 +18,6 @@ export default class Card {
     this._elementLike.addEventListener('click', () => this._toggleLike());
     this._element.querySelector('.element__trash').addEventListener('click', () => this._deletePhoto());
   }
-
-  // _openPhotoPopup(evt) {
-  //   popupPhotoCard.src = evt.target.src;
-  //   popupPhotoCard.alt = evt.target.alt;
-  //   popupPhotoTitle.textContent = evt.target.alt;
-  //   openPopup(popupPhoto);
-  // }
 
   _toggleLike() {
     this._elementLike.classList.toggle('element__like_active');

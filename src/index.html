@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
     <title>Mesto</title>
 </head>
 <body class="page">
@@ -27,7 +26,7 @@
   </footer>
   <template id = "element">
     <div class="element">
-      <img class="element__image" src="./images/zenit.jpg" alt="Зенит арена">
+      <img class="element__image" src="<%=require('./images/zenit.jpg')%>" alt="Зенит арена">
       <button class="element__trash" type="button"></button>
       <div class="element__description">
         <h2 class="element__title" title="Зенит арена">Зенит арена</h2>
@@ -72,6 +71,5 @@
       <p class="popup__photo-title"></p>
     </div>
   </div>
-  <script type="module" src="./pages/index.js"></script>
 </body>
 </html>
