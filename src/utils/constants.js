@@ -14,9 +14,11 @@ const popupEditForm = document.querySelector('[name="edit-profile"]');
 const popupAddForm = document.querySelector('[name="add-element"]');
 const nameSelector = '.profile__name';
 const aboutSelector = '.profile__about';
-const popupName = popupEditForm.querySelector('#name-input');
-const popupAbout = popupEditForm.querySelector('#about-input');
 const cardTemplate = ('#element');
+const popupAddTitle = 'title-element';
+const popupAddLink = 'link-element';
+const popupEditName = 'name-profile'
+const popupEditAbout = 'about-profile'
 
 const initialCardsData = [
   {
@@ -56,5 +58,6 @@ const data = {
 export { 
   editButton, addButton, popupEditSelector, popupAddSelector,
   popupPhotoSelector, popupEditForm, popupAddForm, nameSelector,
-  aboutSelector, popupName, popupAbout, cardTemplate, initialCardsData, data
+  aboutSelector, cardTemplate, initialCardsData, data,
+  popupAddTitle, popupAddLink, popupEditName, popupEditAbout
 } 

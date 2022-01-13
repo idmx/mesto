@@ -12,7 +12,7 @@ export default class UserInfo {
   }
 
   setUserInfo(popupName, popupAbout) {
-    this._name.textContent = popupName.value;
-    this._about.textContent = popupAbout.value;
+    this._name.textContent = popupName;
+    this._about.textContent = popupAbout;
   }
 }

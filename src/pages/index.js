@@ -15,37 +15,50 @@ import {
   popupAddForm,
   nameSelector,
   aboutSelector,
-  popupName,
-  popupAbout,
   cardTemplate,
   initialCardsData,
-  data
+  data,
+  popupAddTitle,
+  popupAddLink,
+  popupEditName,
+  popupEditAbout
 } from '../utils/constants.js'
 
 const validateAddForm = new FormValidator(data, popupAddForm);
 const validateEditForm = new FormValidator(data, popupEditForm);
 const popupPhoto = new PopupWithImage(popupPhotoSelector);
 const userInfo = new UserInfo({ nameSelector, aboutSelector });
-const popupEdit = new PopupWithForm(popupEditSelector, submitEditForm)
-const popupAdd = new PopupWithForm(popupAddSelector, submitAddForm)
+const popupEdit = new PopupWithForm(popupEditSelector, submitEditForm, () => {
+  setInputValues(popupEdit, userInfo.getUserInfo().name, userInfo.getUserInfo().about,
+    popupEditName, popupEditAbout);
+  validateEditForm.resetForm();
+});
+const popupAdd = new PopupWithForm(popupAddSelector, submitAddForm, () => {
+  setInputValues(popupAdd, '', '', popupAddTitle, popupAddLink);
+  validateAddForm.resetForm();
+});
 
-//Добавляем 6 стандартных карточек через js
-createCard(initialCardsData)
-
-//Валидируем обе формы первоначально
-validateAddForm.enableValidation()
-validateEditForm.enableValidation()
-
-function createCard(items) {
-  const cardList = new Section({ 
-    items,
-    rendered: (item) => {
-      const card = new Card(item.name, item.link, cardTemplate, handleCardClick)
-      const newCard = card.addElement()
+const cardList = new Section(
+  { 
+    renderer: (item) => {
+      const newCard = createCard(item);
       cardList.addItem(newCard);
     }
-  },'.elements')
-  cardList.renderItems();
+  },
+  '.elements'
+);
+
+//Добавляем 6 стандартных карточек через js
+cardList.renderItems(initialCardsData);
+
+//Валидируем обе формы первоначально
+validateAddForm.enableValidation();
+validateEditForm.enableValidation();
+
+function createCard(item) {
+  const card = new Card(item.name, item.link, cardTemplate, handleCardClick);
+  const newCard = card.addElement();
+  return newCard;
 }
 
 function handleCardClick(evt) {
@@ -54,23 +67,24 @@ function handleCardClick(evt) {
 
 function submitEditForm(evt) {
   evt.preventDefault();
-  userInfo.setUserInfo(popupName, popupAbout);
-  popupEdit.close(userInfo.getUserInfo().name, userInfo.getUserInfo().about);
+  userInfo.setUserInfo(popupEdit.getInputValues()[popupEditName],
+    popupEdit.getInputValues()[popupEditAbout]);
+  popupEdit.close();
 }
 
 function submitAddForm(evt) {
   evt.preventDefault();
   const data = [{
-    name: popupAdd._getInputValues()[0].value,
-    link: popupAdd._getInputValues()[1].value,
+    name: popupAdd.getInputValues()[popupAddTitle],
+    link: popupAdd.getInputValues()[popupAddLink],
   }]
-  createCard(data)
+  cardList.renderItems(data);
   popupAdd.close();
 }
 
-function setInputValues(popup, firstValue, secondValue) {
-  popup._getInputValues()[0].value = firstValue;
-  popup._getInputValues()[1].value = secondValue;
+function setInputValues(popup, firstValue, secondValue, firstInputName, secondInputName) {
+  const values = {[firstInputName]: firstValue, [secondInputName]: secondValue};
+  popup.setInputValues(values);
 }
 
 popupAdd.setEventListeners();
@@ -78,13 +92,9 @@ popupEdit.setEventListeners();
 popupPhoto.setEventListeners();
 
 editButton.addEventListener('click', () => {
-  setInputValues(popupEdit, userInfo.getUserInfo().name, userInfo.getUserInfo().about);
-  validateEditForm.resetForm();
   popupEdit.open();
 });
 
 addButton.addEventListener('click', () => {
-  setInputValues(popupAdd, '', '');
-  validateAddForm.resetForm();
   popupAdd.open();
 });
