@@ -3,15 +3,19 @@ export default class Api {
     this.options = options;
   }
 
+  _getResponseData(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(res.status); 
+  }
+
   _getProfileInfo() {
     return fetch(`${this.options.baseUrl}/users/me`, {
       headers: this.options.headers
     })
       .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
+        return this._getResponseData(res)
       })
   }
 
@@ -24,6 +28,9 @@ export default class Api {
         about
       })
     })
+      .then(res => {
+        return this._getResponseData(res)
+      })
   }
 
   setAvatar(avatar) {
@@ -34,6 +41,9 @@ export default class Api {
         avatar
       })
     })
+      .then(res => {
+        return this._getResponseData(res)
+      })
   }
 
   _getInitialCards() {
@@ -41,10 +51,7 @@ export default class Api {
       headers: this.options.headers
     })
       .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(res.status);
+        return this._getResponseData(res)
       })
   }
 
@@ -57,6 +64,9 @@ export default class Api {
       method,
       headers: this.options.headers
     })
+      .then(res => {
+        return this._getResponseData(res)
+      })
   }
 
   addCard(name, link) {
@@ -68,6 +78,9 @@ export default class Api {
         link,
       })
     })
+      .then(res => {
+        return this._getResponseData(res)
+      })
   }
 
   deleteCard(cardId) {
@@ -75,5 +88,8 @@ export default class Api {
       method: "DELETE",
       headers: this.options.headers,
     })
+      .then(res => {
+        return this._getResponseData(res)
+      })
   }
 }

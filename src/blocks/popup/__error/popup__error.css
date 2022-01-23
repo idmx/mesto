@@ -1,7 +1,7 @@
 .popup__error {
   display: none;
   position: absolute;
-  top: 43%;
+  top: 140px;
   color: #f00;
   font-weight: normal;
   font-size: 12px;
@@ -11,7 +11,7 @@
 }
 
 .popup__error:nth-of-type(2) {
-  top: 61%;
+  top: 200px;
 }
 
 @media screen and (max-width: 520px) {

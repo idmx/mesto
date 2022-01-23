@@ -36,6 +36,7 @@ import {
 } from '../utils/constants.js'
 
 let photoId = 0;
+let cardElement = null;
 const validateAddForm = new FormValidator(data, popupAddForm);
 const validateEditForm = new FormValidator(data, popupEditForm);
 const validateEditAvatarForm = new FormValidator(data, popupEditAvatarForm);
@@ -84,14 +85,14 @@ validateAddForm.enableValidation();
 validateEditForm.enableValidation();
 validateEditAvatarForm.enableValidation();
 
-function likePhoto(cardId, method) {
+function likePhoto(cardId, isLikes, likeClasses, likeCounts) {
+  let method;
+  if (isLikes) method = 'DELETE'
+  else method = 'PUT'
   api.setLikePhoto(cardId, method)
-    .then(res => {
-      if (res.ok) {
-        initCards()
-        return res.json();
-      }
-      return Promise.reject(res.status);
+    .then((data) => {
+      likeClasses.toggle('element__like_active');
+      likeCounts.textContent = data.likes.length;
     })
     .catch(err => {
       console.log(`Ошибка загрузки данных: ${err}`)
@@ -103,7 +104,7 @@ function initCards() {
     .then(([userInform, cards]) => {
       userInfo.setUserInfo(userInform.name, userInform.about);
       cardList.renderItems(cards, userInform._id);
-      userAvatar.style.backgroundImage = `url(${userInform.avatar})`;
+      setAvatar(userInform.avatar);
       setInputValues(popupEdit, userInfo.getUserInfo().name, userInfo.getUserInfo().about,
       popupEditName, popupEditAbout);
     })
@@ -112,9 +113,10 @@ function initCards() {
     })
 }
 
-function touchTrash(cardId) {
-  popupDeleteButton.innerHTML = 'Да'
-  photoId = cardId
+function touchTrash(cardId, element) {
+  popupDeleteButton.innerHTML = 'Да';
+  photoId = cardId;
+  cardElement = element;
   popupDelete.open();
 }
 
@@ -125,19 +127,26 @@ function createCard(item, userInfoId) {
 }
 
 function handleCardClick(evt) {
-  popupPhoto.open(evt);
+  const src = evt.target.src;
+  const alt = evt.target.alt;
+  popupPhoto.open(src, alt);
+}
+
+function deletePhoto() {
+  cardElement.remove();
+  cardElement = null;
+} 
+
+function setAvatar(url) {
+  userAvatar.style.backgroundImage = `url(${url})`;
 }
 
 function clickDelete() {
   popupDeleteButton.innerHTML = 'Сохранение...'
   api.deleteCard(photoId)
-    .then(res => {
-      if (res.ok) {
-        initCards();
-        popupDelete.close();
-        return res.json();
-      }
-      return Promise.reject(res.status);
+    .then(() => {
+      deletePhoto(),
+      popupDelete.close()
     })
     .catch(err => {
       console.log(`Ошибка загрузки данных: ${err}`)
@@ -147,15 +156,11 @@ function clickDelete() {
 function submitEditForm(evt) {
   evt.preventDefault();
   popupSaveEditButton.innerHTML = 'Сохранение...'
-  userInfo.setUserInfo(popupEdit.getInputValues()[popupEditName],
-    popupEdit.getInputValues()[popupEditAbout]);
   api.setUserName(userInfo.getUserInfo().name, userInfo.getUserInfo().about)
-    .then(res => {
-      if (res.ok) {
-        popupEdit.close()
-        return res.json()
-      }
-      return Promise.reject(res.status);
+    .then(() => {
+      userInfo.setUserInfo(popupEdit.getInputValues()[popupEditName],
+      popupEdit.getInputValues()[popupEditAbout]);
+      popupEdit.close()
     })
     .catch(err => {
       console.log(`Ошибка загрузки данных: ${err}`)
@@ -166,13 +171,10 @@ function submitAddForm(evt) {
   evt.preventDefault();
   popupSaveAddButton.innerHTML = 'Сохранение...'
   api.addCard(popupAdd.getInputValues()[popupAddTitle], popupAdd.getInputValues()[popupAddLink])
-    .then(res => {
-      if (res.ok) {
-        initCards(),
-        popupAdd.close()
-        return res.json()
-      }
-      return Promise.reject(res.status);
+    .then(data => {
+        const newCard = createCard(data, data.owner._id);
+        cardList.addItem(newCard);
+        popupAdd.close();
     })
     .catch(err => {
       console.log(`Ошибка загрузки данных: ${err}`)
@@ -183,13 +185,9 @@ function submitEditAvatarForm(evt) {
   evt.preventDefault();
   popupSaveAvatarButton.innerHTML = 'Сохранение...'
   api.setAvatar(popupEditAvatar.getInputValues()[popupAvatarLink])
-    .then(res => {
-      if (res.ok) {
-        initCards(),
-        popupEditAvatar.close()
-        return res.json()
-      }
-      return Promise.reject(res.status);
+    .then(() => {
+      setAvatar(popupEditAvatar.getInputValues()[popupAvatarLink]),
+      popupEditAvatar.close()
     })
     .catch(err => {
       console.log(`Ошибка загрузки данных: ${err}`)
@@ -210,7 +208,7 @@ popupDelete.setEventListeners();
 popupDeleteButton.addEventListener('click', clickDelete)
 
 editButton.addEventListener('click', () => {
-  popupSaveAvatarButton.innerHTML = 'Сохранить'
+  popupSaveEditButton.innerHTML = 'Сохранить'
   popupEdit.open();
 });
 

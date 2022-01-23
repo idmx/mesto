@@ -10,6 +10,7 @@ export default class Card {
     this._userInfoId = userInfoId;
     this._photoOwnerId = photo.owner._id;
     this._touchTrash = touchTrash;
+    this._isLikes = false;
   }
 
   _getTemplate() {
@@ -22,23 +23,26 @@ export default class Card {
     this._elementImage.addEventListener('click', this._handleCardClick);
     this._elementLike = this._element.querySelector('.element__like');
     this._elementLike.addEventListener('click', () => this._toggleLike());
-    this._element.querySelector('.element__trash').addEventListener('click', () => this._touchTrash(this._photoId));
+    this._element.querySelector('.element__trash').addEventListener('click', () => this._touchTrash(this._photoId, this._element));
   }
 
   _toggleLike() {
-    if (this._elementLike.classList.contains('element__like_active')) {
-      this._likePhoto(this._photoId, 'DELETE');
+    if (this._isLikes) {
+      this._likePhoto(this._photoId, this._isLikes,
+      this._elementLike.classList, this._element.querySelector('.element__likes>.element__counts'));
+      this._isLikes = false;
     } else {
-      this._likePhoto(this._photoId, 'PUT');
+      this._likePhoto(this._photoId, this._isLikes,
+      this._elementLike.classList, this._element.querySelector('.element__likes>.element__counts'));
+      this._isLikes = true;
     }
-    this._elementLike.classList.toggle('element__like_active');
-    this._element.querySelector('.element__likes>.element__counts').textContent = this._photoLikes.length;
   }
 
   _hasMyLikes() {
     this._photoLikes.forEach(like => {
       if (like._id === this._userInfoId) {
         this._elementLike.classList.toggle('element__like_active');
+        this._isLikes = true;
       }
     })
   }
