@@ -34,7 +34,7 @@
 .popup__container-photo{margin:0;max-width:75vw;min-height:75vh;padding:0;position:relative}@media screen and (max-width:320px){.popup__container-photo{align-self:flex-end}}
 .popup__save_disabled{background-color:#fff;border:1px solid #000;color:#000;cursor:auto;opacity:.2}.popup__save_disabled:hover{opacity:.2}
 .popup__form-element_type_error{border-bottom:1px solid red}
-.popup__error{color:red;display:none;font-size:12px;font-weight:400;line-height:15px;margin:0 0 0 36px;position:absolute;top:43%;width:calc(100% - 72px)}.popup__error:nth-of-type(2){top:61%}@media screen and (max-width:520px){.popup__error{top:44%}.popup__error:nth-of-type(2){top:61%}}@media screen and (max-width:350px){.popup__error{margin:0 0 0 22px;top:45%;width:calc(100% - 44px)}.popup__error:nth-of-type(2){top:63%}}
+.popup__error{color:red;display:none;font-size:12px;font-weight:400;line-height:15px;margin:0 0 0 36px;position:absolute;top:140px;width:calc(100% - 72px)}.popup__error:nth-of-type(2){top:200px}@media screen and (max-width:520px){.popup__error{top:44%}.popup__error:nth-of-type(2){top:61%}}@media screen and (max-width:350px){.popup__error{margin:0 0 0 22px;top:45%;width:calc(100% - 44px)}.popup__error:nth-of-type(2){top:63%}}
 .popup__error_visible{display:block}
 .element__likes{align-items:center;display:flex;flex-direction:column;margin:22px 20px;padding:0;width:22px}
 .element__counts{margin:3px 0;padding:0}
