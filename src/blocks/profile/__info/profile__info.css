@@ -1,5 +1,6 @@
 .profile__info {
   display: grid;
+  position: relative;
   grid-template-columns:auto auto auto;
   min-height: 73px;
   max-width: 70%;

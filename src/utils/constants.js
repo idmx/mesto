@@ -1,51 +1,28 @@
-import crimeaImage from '../images/Crimea.jpg';
-import borImage from '../images/bor.jpg';
-import elaginImage from '../images//elagin.jpg';
-import kareliaImage from '../images/karelia.jpg';
-import moscowCityImage from '../images/moscow_city.jpg';
-import zenitImage from '../images/zenit.jpg';
-
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
+const editAvatarButton = document.querySelector('.profile__avatar');
 const popupEditSelector = '.popup_edit';
 const popupAddSelector = '.popup_add';
 const popupPhotoSelector = '.popup_photo';
+const popupAvatarSelector = '.popup_avatar';
+const popupDeleteSelector = '.popup_delete';
+const popupEditAvatarForm = document.querySelector('[name="edit-avatar"]');
 const popupEditForm = document.querySelector('[name="edit-profile"]');
 const popupAddForm = document.querySelector('[name="add-element"]');
+const popupDelete = document.querySelector(popupDeleteSelector);
 const nameSelector = '.profile__name';
 const aboutSelector = '.profile__about';
 const cardTemplate = ('#element');
 const popupAddTitle = 'title-element';
 const popupAddLink = 'link-element';
-const popupEditName = 'name-profile'
-const popupEditAbout = 'about-profile'
-
-const initialCardsData = [
-  {
-    name: 'Крым',
-    link: crimeaImage
-  },
-  {
-    name: 'Сосновый бор',
-    link: borImage
-  },
-  {
-    name: 'Елагин остров',
-    link: elaginImage
-  },
-  {
-    name: 'Ладожские шхеры',
-    link: kareliaImage
-  },
-  {
-    name: 'Москва Сити',
-    link: moscowCityImage
-  },
-  {
-    name: 'Зенит арена',
-    link: zenitImage
-  }
-];
+const popupAvatarLink = 'link-avatar';
+const popupEditName = 'name-profile';
+const popupEditAbout = 'about-profile';
+const userAvatar = document.querySelector('.profile__avatar');
+const popupSaveAvatarButton = popupEditAvatarForm.querySelector('.popup__save');
+const popupSaveEditButton = popupEditForm.querySelector('.popup__save');
+const popupSaveAddButton = popupAddForm.querySelector('.popup__save');
+const popupDeleteButton = popupDelete.querySelector('.popup__save');
 
 const data = {
   inputSelector: '.popup__form-element',
@@ -58,6 +35,9 @@ const data = {
 export { 
   editButton, addButton, popupEditSelector, popupAddSelector,
   popupPhotoSelector, popupEditForm, popupAddForm, nameSelector,
-  aboutSelector, cardTemplate, initialCardsData, data,
-  popupAddTitle, popupAddLink, popupEditName, popupEditAbout
+  aboutSelector, cardTemplate, data, popupAvatarLink,
+  popupAddTitle, popupAddLink, popupEditName, popupEditAbout,
+  popupAvatarSelector, popupEditAvatarForm, editAvatarButton,
+  userAvatar, popupSaveAvatarButton, popupSaveEditButton, popupSaveAddButton,
+  popupDeleteButton, popupDeleteSelector
 } 

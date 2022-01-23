@@ -12,10 +12,12 @@
   <main class="content">
     <section class="profile">   
       <div class="profile__info">
-        <div class="profile__avatar"></div>
-        <h1 class="profile__name">Слава Завьялов</h1>
+        <button class="profile__avatar" type="button">
+          <div class="profile__edit-avatar"></div>
+        </button>
+        <h1 class="profile__name"></h1>
         <button class="profile__edit-button" type="button"></button>
-        <p class="profile__about">Студент</p>
+        <p class="profile__about"></p>
       </div>
       <button class="profile__add-button" type="button"></button>
     </section>
@@ -30,7 +32,10 @@
       <button class="element__trash" type="button"></button>
       <div class="element__description">
         <h2 class="element__title" title="Зенит арена">Зенит арена</h2>
-        <button class="element__like" type="button"></button>
+        <div class="element__likes">
+          <button class="element__like" type="button"></button>
+          <p class="element__counts">0</p>
+        </div>
       </div>
     </div>
   </template>
@@ -69,6 +74,24 @@
       <img class="popup__photo-element" src="#" alt="#">
       <button class="popup__close" type="button"></button>
       <p class="popup__photo-title"></p>
+    </div>
+  </div>
+  <div class="popup popup_avatar">
+    <div class="popup__container">
+      <button class="popup__close" type="button"></button>
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form class="popup__form" name="edit-avatar" novalidate>
+        <input type="url" id="link-input" class="popup__form-element" name="link-avatar" 
+        value="" placeholder="Ссылка на картинку" required>
+        <span class="popup__error popup__error_visible link-input-error"></span>
+        <button type="submit" class="popup__save">Сохранить</button>
+    </div>
+  </div>
+  <div class="popup popup_delete">
+    <div class="popup__container">
+      <button class="popup__close" type="button"></button>
+      <h2 class="popup__title">Вы уверены?</h2>
+      <button type="button" class="popup__save">Да</button>
     </div>
   </div>
 </body>

@@ -36,3 +36,7 @@
 @import url(../blocks/popup/__form-element/_type_error/popup__form-element_type_error.css);
 @import url(../blocks/popup/__error/popup__error.css);
 @import url(../blocks/popup/__error/_visible/popup__error_visible.css);
+@import url(../blocks/element/__likes/element__likes.css);
+@import url(../blocks/element/__counts/element__counts.css);
+@import url(../blocks/element/__trash/_active/element__trach_active.css);
+@import url(../blocks/profile/__edit-avatar/profile__edit-avatar.css);
