@@ -16,11 +16,11 @@
 
 @media screen and (max-width: 520px) {
   .popup__error {
-    top: 44%;
+    top: 145px;
   }
 
   .popup__error:nth-of-type(2) {
-    top: 61%;
+    top: 205px;
   }
 }
 
@@ -28,10 +28,5 @@
   .popup__error {
     margin: 0 0 0 22px;
     width: calc(100% - 44px);
-    top: 45%;
-  }
-
-  .popup__error:nth-of-type(2) {
-    top: 63%;
   }
 }
