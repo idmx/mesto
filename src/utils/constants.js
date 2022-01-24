@@ -18,7 +18,7 @@ const popupAddLink = 'link-element';
 const popupAvatarLink = 'link-avatar';
 const popupEditName = 'name-profile';
 const popupEditAbout = 'about-profile';
-const userAvatar = document.querySelector('.profile__avatar');
+const userAvatarSelector = '.profile__avatar';
 const popupSaveAvatarButton = popupEditAvatarForm.querySelector('.popup__save');
 const popupSaveEditButton = popupEditForm.querySelector('.popup__save');
 const popupSaveAddButton = popupAddForm.querySelector('.popup__save');
@@ -38,6 +38,6 @@ export {
   aboutSelector, cardTemplate, data, popupAvatarLink,
   popupAddTitle, popupAddLink, popupEditName, popupEditAbout,
   popupAvatarSelector, popupEditAvatarForm, editAvatarButton,
-  userAvatar, popupSaveAvatarButton, popupSaveEditButton, popupSaveAddButton,
+  userAvatarSelector, popupSaveAvatarButton, popupSaveEditButton, popupSaveAddButton,
   popupDeleteButton, popupDeleteSelector
 } 

@@ -1,7 +1,8 @@
 export default class UserInfo {
-  constructor({ nameSelector, aboutSelector }) {
+  constructor({ nameSelector, aboutSelector, userAvatarSelector }) {
     this._name = document.querySelector(nameSelector);
     this._about = document.querySelector(aboutSelector);
+    this._avatar = document.querySelector(userAvatarSelector);
   }
 
   getUserInfo() {
@@ -11,8 +12,8 @@ export default class UserInfo {
     }
   }
 
-  setAvatar(url, userAvatar) {
-    userAvatar.style.backgroundImage = `url(${url})`;
+  setAvatar(url) {
+    this._avatar.style.backgroundImage = `url(${url})`;
   }
 
   setUserInfo(popupName, popupAbout) {

@@ -27,7 +27,7 @@ import {
   popupEditAvatarForm,
   editAvatarButton,
   popupAvatarLink,
-  userAvatar,
+  userAvatarSelector,
   popupSaveAvatarButton,
   popupSaveEditButton,
   popupSaveAddButton,
@@ -41,7 +41,7 @@ const validateAddForm = new FormValidator(data, popupAddForm);
 const validateEditForm = new FormValidator(data, popupEditForm);
 const validateEditAvatarForm = new FormValidator(data, popupEditAvatarForm);
 const popupPhoto = new PopupWithImage(popupPhotoSelector);
-const userInfo = new UserInfo({ nameSelector, aboutSelector });
+const userInfo = new UserInfo({ nameSelector, aboutSelector, userAvatarSelector });
 const popupEdit = new PopupWithForm(popupEditSelector, submitEditForm, () => {
   setInputValues(popupEdit, userInfo.getUserInfo().name, userInfo.getUserInfo().about,
     popupEditName, popupEditAbout);
@@ -103,7 +103,7 @@ function initCards() {
     .then(([userInform, cards]) => {
       userInfo.setUserInfo(userInform.name, userInform.about);
       cardList.renderItems(cards, userInform._id);
-      userInfo.setAvatar(userInform.avatar, userAvatar);
+      userInfo.setAvatar(userInform.avatar);
       setInputValues(popupEdit, userInfo.getUserInfo().name, userInfo.getUserInfo().about,
       popupEditName, popupEditAbout);
     })
@@ -176,7 +176,7 @@ function submitEditAvatarForm(evt) {
   popupSaveAvatarButton.innerHTML = 'Сохранение...'
   api.setAvatar(popupEditAvatar.getInputValues()[popupAvatarLink])
     .then(() => {
-      userInfo.setAvatar(popupEditAvatar.getInputValues()[popupAvatarLink], userAvatar),
+      userInfo.setAvatar(popupEditAvatar.getInputValues()[popupAvatarLink]),
       popupEditAvatar.close()
     })
     .catch(err => {
