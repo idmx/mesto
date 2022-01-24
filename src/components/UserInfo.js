@@ -11,6 +11,10 @@ export default class UserInfo {
     }
   }
 
+  setAvatar(url, userAvatar) {
+    userAvatar.style.backgroundImage = `url(${url})`;
+  }
+
   setUserInfo(popupName, popupAbout) {
     this._name.textContent = popupName;
     this._about.textContent = popupAbout;

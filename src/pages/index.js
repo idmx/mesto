@@ -85,14 +85,13 @@ validateAddForm.enableValidation();
 validateEditForm.enableValidation();
 validateEditAvatarForm.enableValidation();
 
-function likePhoto(cardId, isLikes, likeClasses, likeCounts) {
+function likePhoto(card, cardId, isLikes) {
   let method;
   if (isLikes) method = 'DELETE'
   else method = 'PUT'
   api.setLikePhoto(cardId, method)
     .then((data) => {
-      likeClasses.toggle('element__like_active');
-      likeCounts.textContent = data.likes.length;
+      card.toggleLike(data)
     })
     .catch(err => {
       console.log(`Ошибка загрузки данных: ${err}`)
@@ -104,7 +103,7 @@ function initCards() {
     .then(([userInform, cards]) => {
       userInfo.setUserInfo(userInform.name, userInform.about);
       cardList.renderItems(cards, userInform._id);
-      setAvatar(userInform.avatar);
+      userInfo.setAvatar(userInform.avatar, userAvatar);
       setInputValues(popupEdit, userInfo.getUserInfo().name, userInfo.getUserInfo().about,
       popupEditName, popupEditAbout);
     })
@@ -113,10 +112,10 @@ function initCards() {
     })
 }
 
-function touchTrash(cardId, element) {
+function touchTrash(card, cardId) {
   popupDeleteButton.innerHTML = 'Да';
   photoId = cardId;
-  cardElement = element;
+  cardElement = card;
   popupDelete.open();
 }
 
@@ -132,20 +131,11 @@ function handleCardClick(evt) {
   popupPhoto.open(src, alt);
 }
 
-function deletePhoto() {
-  cardElement.remove();
-  cardElement = null;
-} 
-
-function setAvatar(url) {
-  userAvatar.style.backgroundImage = `url(${url})`;
-}
-
 function clickDelete() {
   popupDeleteButton.innerHTML = 'Сохранение...'
   api.deleteCard(photoId)
     .then(() => {
-      deletePhoto(),
+      cardElement.removeCard(),
       popupDelete.close()
     })
     .catch(err => {
@@ -186,7 +176,7 @@ function submitEditAvatarForm(evt) {
   popupSaveAvatarButton.innerHTML = 'Сохранение...'
   api.setAvatar(popupEditAvatar.getInputValues()[popupAvatarLink])
     .then(() => {
-      setAvatar(popupEditAvatar.getInputValues()[popupAvatarLink]),
+      userInfo.setAvatar(popupEditAvatar.getInputValues()[popupAvatarLink], userAvatar),
       popupEditAvatar.close()
     })
     .catch(err => {

@@ -22,21 +22,24 @@ export default class Card {
   _setEventListeners() {
     this._elementImage.addEventListener('click', this._handleCardClick);
     this._elementLike = this._element.querySelector('.element__like');
-    this._elementLike.addEventListener('click', () => this._toggleLike());
-    this._element.querySelector('.element__trash').addEventListener('click', () => this._touchTrash(this._photoId, this._element));
+    this._elementLike.addEventListener('click', () => this._likePhoto(this, this._photoId, this._isLikes));
+    this._element.querySelector('.element__trash').addEventListener('click', () => this._touchTrash(this, this._photoId));
   }
 
-  _toggleLike() {
+  toggleLike(data) {
+    this._elementLike.classList.toggle('element__like_active');
+    this._element.querySelector('.element__likes>.element__counts').textContent = data.likes.length;
     if (this._isLikes) {
-      this._likePhoto(this._photoId, this._isLikes,
-      this._elementLike.classList, this._element.querySelector('.element__likes>.element__counts'));
       this._isLikes = false;
     } else {
-      this._likePhoto(this._photoId, this._isLikes,
-      this._elementLike.classList, this._element.querySelector('.element__likes>.element__counts'));
       this._isLikes = true;
     }
-  }
+  } 
+
+  removeCard() {
+    this._element.remove();
+    this._element = null;
+  } 
 
   _hasMyLikes() {
     this._photoLikes.forEach(like => {
